@@ -12,6 +12,9 @@ export class SimpleChatClientCore {
         this.socket.on('connect_error', () => {
             throw new Error(`Cannot connect to ${host}.`);
         });
+        this.socket.on('connect_timeout', () => {
+            throw new Error(`Connection timeout while connecting to ${host}.`);
+        });
     }
 
     public dispose(): void {
@@ -19,10 +22,12 @@ export class SimpleChatClientCore {
             this.socket.off(eventName);
         });
         this.socket.off('connect_error');
+        this.socket.off('connect_timeout');
     }
 
-    public login(name: string): void {
+    public async login(name: string): Promise<void> {
         this.socket.emit(MessageTypes.UserJoin, name);
+        return Promise.resolve();
     }
 
     public off(eventName: MessageTypes): void {
@@ -38,20 +43,22 @@ export class SimpleChatClientCore {
         this.usedEvents.push(eventName);
     }
 
-    public sendImage(dataUrl: string): void {
+    public async sendImage(dataUrl: string): Promise<void> {
         let message: ImageChatMessage = {
             type: 'image',
             image: dataUrl
         };
         this.sendMessage(message);
+        return Promise.resolve();
     }
 
-    public sendText(text: string): void {
+    public async sendText(text: string): Promise<void> {
         let message: TextChatMessage = {
             type: 'text',
             text: text
         };
         this.sendMessage(message);
+        return Promise.resolve();
     }
 
     private sendMessage(message: ChatMessage): void {
