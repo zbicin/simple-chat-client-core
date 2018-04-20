@@ -1,6 +1,6 @@
 {
   "name": "simple-chat-client-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core of a client application for the Simple Chat Server.",
   "main": "dist/index.js",
   "scripts": {
