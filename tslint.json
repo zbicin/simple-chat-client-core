@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "jsdoc-format": false,
+    "strict-type-predicates": false,
+    "no-switch-case-fall-through": false,
+    "no-use-before-declare": false,
+    "member-ordering": false,
+    "no-unnecessary-qualifier": false
+  }
+}
